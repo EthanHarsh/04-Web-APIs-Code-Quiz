@@ -4,28 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet">
     <title>Javascript Quiz 🧐</title>
 </head>
 <body>
     <header><h1>Javascript Quiz 🧐</h1></header>
     <main>
         <div class="sidebar">
-            <div class="your-score">
+            <div class="info-card your-score">
                 <h3>Your Score</h3>
+                <h4>2000</h4>
             </div>
-            <div class="high-score">
+            <div class="info-card high-score">
                 <h3>High Score</h3>
+                <h4>10000</h4>
             </div>
-            <div class="this-test">
-                <h3>Test Info</h3>
+            <div class="info-card this-test">
+                <h3>Average Score</h3>
+                <h4>7400</h4>
             </div>
         </div>
 
-        <div class="test-area">
-            <h2>Question X of 10</h2>
+        <div class="test-area"> 
             <div class="question-card">
-                <h3>Question String</h3>
-                <div class="answer-options">
+                <h2>Question X of 10</h2>
+                <div class="question-box">
+                    <h3>Question String</h3>
                     <ol>
                         <li>Choice A</li>
                         <li>Choice B</li>
@@ -36,5 +43,6 @@
             </div>
         </div>
     </main>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
