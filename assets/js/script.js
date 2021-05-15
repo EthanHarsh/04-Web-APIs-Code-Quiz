@@ -17,8 +17,9 @@ function renderQuestion(question) {
         let answer = 'answer_' + i;
         //console.log(answer);
         //console.log(el);
-    
-        document.getElementById(answer).textContent = el;
+        let choice = document.getElementById(answer);
+        
+        choice.textContent = el;
         i++;
     })
 }
@@ -46,7 +47,18 @@ function renderAnswer(arr) {
         let choice = document.getElementById(answer);
         //console.log(choice);
         choice.classList.add(el);
-        
+        i++;
+    });
+}
+
+function removeAnswer(arr) {
+    let i = 1;
+    arr.forEach(el => {
+        let answer = 'answer_' + i;
+        //console.log(answer);
+        let choice = document.getElementById(answer);
+        //console.log(choice);
+        choice.classList.remove(el);
         i++;
     });
 }
@@ -99,7 +111,21 @@ function getQuestions() {
 }
 
 function setEventListeners(questionArr) {
-
+    document.getElementById("next").addEventListener("click", () => {
+        let info = getLocal();
+        removeAnswer(answerClass(questionArr[parseInt(info.place)]));
+        info.place = addToString(info.place, 1);
+        renderQuestion(questionArr[parseInt(info.place)]);
+        localStorage.setItem('place', info.place);
+    });
+    document.getElementById("reset").addEventListener("click", () => {
+        info = getLocal();
+        removeAnswer(answerClass(questionArr[parseInt(info.place)]));
+        resetTest();
+        info = getLocal();
+        updateScores(info);
+        renderQuestion(questionArr[parseInt(info.place)]);
+    });
     for(let i = 1; i < questionArr[0].ansArray.length + 1; i++) {
         let answer = 'answer_' + i;
         document.getElementById(answer).addEventListener("click", () => {
@@ -121,6 +147,11 @@ function addToString(el, add) {
     el = parseInt(el) + add;
     el = el.toString();
     return el
+}
+
+function resetTest() {
+    localStorage.setItem('userScore', 0);  
+    localStorage.setItem('place', 0);
 }
 
 //console.log(testQuestion);
