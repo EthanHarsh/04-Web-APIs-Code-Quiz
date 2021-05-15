@@ -112,3 +112,11 @@ li {
 .question-box h3 {
     margin-bottom: 1rem;
 }
+
+.correct {
+    background-color: blue;
+}
+
+.incorrect {
+    background-color: pink;
+}
