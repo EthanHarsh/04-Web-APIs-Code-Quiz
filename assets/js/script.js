@@ -11,18 +11,34 @@ renderQuestion(questionArr[parseInt(info.place)]);
 
 
 function renderQuestion(question) {
-    let i=1;
-    document.getElementById('question-string').textContent = question.question;
-    question.ansArray.forEach(el => {
-        let answer = 'answer_' + i;
-        //console.log(answer);
-        //console.log(el);
-        let choice = document.getElementById(answer);
-        
-        choice.textContent = el;
-        i++;
-    })
+    let info = getLocal();
+    if (parseInt(info.place) < 10) {
+        let i=1;
+    
+        title = addToString(info.place, 1);
+        document.getElementById('title-string').textContent = 'Question ' + title + ' of 10';
+        document.getElementById('question-string').textContent = question.question;
+        question.ansArray.forEach(el => {
+            let answer = 'answer_' + i;
+            //console.log(answer);
+            //console.log(el);
+            let choice = document.getElementById(answer);
+            
+            choice.textContent = el;
+            i++;
+        });
+    } else {
+        document.getElementById('title-string').textContent = 'Test Complete! 🥳';
+        document.getElementById('question-string').textContent = 'You got ' + (info.userScore / 1000) + ' out of 10 correct';
+        if (info.userScore > info.highScore) {
+            localStorage.setItem('highScore', info.userScore);
+        }
+
+    }
+    
+
 }
+
 
 function answerClass(question) {
     let arr = [];
@@ -120,7 +136,9 @@ function setEventListeners(questionArr) {
     });
     document.getElementById("reset").addEventListener("click", () => {
         info = getLocal();
-        removeAnswer(answerClass(questionArr[parseInt(info.place)]));
+        if(parseInt(info.place) < 10) {
+            removeAnswer(answerClass(questionArr[parseInt(info.place)]));
+        }
         resetTest();
         info = getLocal();
         updateScores(info);
@@ -150,8 +168,12 @@ function addToString(el, add) {
 }
 
 function resetTest() {
+    info = getLocal();
     localStorage.setItem('userScore', 0);  
     localStorage.setItem('place', 0);
+    if(parseInt(info.place) >= 10) {
+        localStorage.setItem('place', 0);
+    }
 }
 
 //console.log(testQuestion);
