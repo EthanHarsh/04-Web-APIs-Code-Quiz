@@ -1,4 +1,5 @@
 var questionArr = getQuestions();
+console.log(questionArr)
 
 var info = getLocal();
 checkIn(info);
@@ -14,8 +15,9 @@ function renderQuestion(question) {
     let info = getLocal();
     if (parseInt(info.place) < 10) {
         let i=1;
-    
+        //console.log(info.place)
         title = addToString(info.place, 1);
+        //console.log('title:' + title)
         document.getElementById('title-string').textContent = 'Question ' + title + ' of 10';
         document.getElementById('question-string').textContent = question.question;
         question.ansArray.forEach(el => {
@@ -23,6 +25,7 @@ function renderQuestion(question) {
             //console.log(answer);
             //console.log(el);
             let choice = document.getElementById(answer);
+            //console.log(choice)
             
             choice.textContent = el;
             i++;
@@ -30,8 +33,19 @@ function renderQuestion(question) {
     } else {
         document.getElementById('title-string').textContent = 'Test Complete! 🥳';
         document.getElementById('question-string').textContent = 'You got ' + (info.userScore / 1000) + ' out of 10 correct';
-        if (info.userScore > info.highScore) {
+        if (parseInt(info.userScore) > parseInt(info.highScore)) {
             localStorage.setItem('highScore', info.userScore);
+            let info = getLocal();
+            updateScores(info);
+        }
+        for(let count = 1; count < 5; count++) {
+            let answer = 'answer_' + count;
+            //console.log(answer);
+            //console.log(el);
+            let choice = document.getElementById(answer);
+            //console.log(choice)
+            
+            choice.textContent = 'Good Job 😁👍';
         }
 
     }
@@ -112,27 +126,15 @@ function checkIn(info) {
     }
 }
 
-function getQuestions() {
-    let arr = [];
-    for(let i = 0; i < 11; i++) {
-        let name = 'object_' + i;
-        let obj = {
-            question: name,
-            ansArray: ['sky is no purarepl===' + i, 'no' + i, 'yes' + i, 'possible' + i],
-            correct: i % 4
-        }
-        arr.push(obj)
-    }
-    return arr;
-}
+
 
 function setEventListeners(questionArr) {
     document.getElementById("next").addEventListener("click", () => {
         let info = getLocal();
         removeAnswer(answerClass(questionArr[parseInt(info.place)]));
         info.place = addToString(info.place, 1);
-        renderQuestion(questionArr[parseInt(info.place)]);
         localStorage.setItem('place', info.place);
+        renderQuestion(questionArr[parseInt(info.place)]);
     });
     document.getElementById("reset").addEventListener("click", () => {
         info = getLocal();
@@ -178,3 +180,54 @@ function resetTest() {
 
 //console.log(testQuestion);
 
+function getQuestions() {
+    let questions = [
+        'What is Javascript?',
+        'What makes a scripting language different from other programming languages?',
+        'Where is Javascript used?',
+        'How are ogres, onions, and Javascript related?',
+        'What is Node.js?',
+        'What is an advantage of Node.js?',
+        'What is a difference between syncronous and asyncronous code in Node.js?',
+        'Who invented Javascript?',
+        'How long did it take Brandon Eich to develop Javascript?',
+        'Who is Satoshi Nakamoto?'
+    ];
+
+    let answers = [
+        ['A baked good', 'A religious text', 'A scripting language (or programming language)', 'Shrek'],
+        ['A scripting language does not have to be compiled to run', 'Shrek', 'Actors use scripting languages to audition for movie roles', 'Scripting languages were created by James Cameron, the patron saint of Papyrus.'],
+        ['Here', 'There', 'Everywhere', 'Shrek?'],
+        ['Donkey!', 'Layers', 'Shrek', '42'],
+        ['The world’s largest and most powerful particle accelerator', 'Shrek', 'An interpreted, object-oriented high-level programming language with dynamic semantics', 'An asynchronous event-driven JavaScript runtime'],
+        ['Ability to do heavy computation', 'Better efficiency and overall developer productivity', 'Shrek', 'Javascript is a rarely known language'],
+        ['Synchronous code is exectued in sequence, asynchronous code does not wait for the previous task to finish before starting the next task', 'Shrek', 'This has nothing to do with javascript, these are olympic events', 'Allows multi threaded computation'],
+        ['Shrek', 'Satoshi Nakamoto', 'Brendan Eich', 'John Glenn'],
+        ['10 years', '10 days', '10 hours', 'Shrek'],
+        ['Brandon Eich', 'Elon Musk', 'Vitalik Buterin', 'Shrek']
+    ];
+
+    let correct = [
+        2, //1
+        0, //2
+        2, //3
+        1, //4
+        3, //What is nodejs
+        1,  //An advantage of Nodejs
+        0,
+        2,
+        1,
+        3
+    ];
+
+    let arr = [];
+    for(let i = 0; i < 11; i++) {
+        let obj = {
+            question: questions[i],
+            ansArray: answers[i],
+            correct: correct[i]
+        }
+        arr.push(obj)
+    }
+    return arr;
+}
