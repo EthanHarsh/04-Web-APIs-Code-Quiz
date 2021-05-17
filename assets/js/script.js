@@ -222,11 +222,19 @@ function getQuestions() {
 
 function startTimer() {
     let counter = 5 * 60;
+    let sesh = Math.floor(Math.random() * 100000000);
+    console.log(sesh);
+    localStorage.setItem('session_id', sesh); 
     setInterval(() => {
         //console.log(Date.now());
         //console.log(end);
+        seshCheck = localStorage.getItem('session_id');
         counter--;
-        if (counter >= 0) {
+        if( sesh != parseInt(seshCheck)) {
+            clearInterval();
+        }
+        console.log(seshCheck);
+         if (counter >= 0) { //need to have a way to end counter  (random variable in localhost)
             //console.log(Date.now());
             let seconds = counter % 60;
             if (seconds < 10) {
@@ -237,9 +245,11 @@ function startTimer() {
         } else {
             if(window.confirm(`Time's up!`)) {
                 startQuiz();
+                clearInterval();
             } else {
                 startQuiz();
-            }
+                clearInterval();
+            }   
         }
     }, 1000);
 }
