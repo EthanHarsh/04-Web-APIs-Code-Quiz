@@ -195,6 +195,7 @@ li:hover, button:hover {
     }
     header {
         height: auto;
+        width: 150vw;
     }
     header h1 {
         display: none;
@@ -205,7 +206,7 @@ li:hover, button:hover {
         padding: 0.5rem;
         height: auto;
         box-shadow: 0px 0px 5px rgba( 0, 0, 0, 0.5 );
-        
+        overflow: hidden;
     }
     .desktop {
         display: none;

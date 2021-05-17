@@ -8,7 +8,7 @@ info = getLocal();
 updateScores(info);
 setEventListeners(questionArr);
 
-renderQuestion(questionArr[parseInt(info.place)]);
+startQuiz();
 
 
 function renderQuestion(question) {
@@ -47,10 +47,7 @@ function renderQuestion(question) {
             
             choice.textContent = 'Good Job 😁👍';
         }
-
     }
-    
-
 }
 
 
@@ -113,6 +110,8 @@ function newStats() {
 function updateScores(info) {
      document.getElementById('user-score').textContent = info.userScore;
      document.getElementById('high-score').textContent = info.highScore;
+     document.getElementById('user-score-m').textContent = info.userScore;
+     document.getElementById('high-score-m').textContent = info.highScore;
 
      localStorage.setItem('userScore', info.userScore);
      localStorage.setItem('highScore', info.highScore);  
@@ -141,10 +140,7 @@ function setEventListeners(questionArr) {
         if(parseInt(info.place) < 10) {
             removeAnswer(answerClass(questionArr[parseInt(info.place)]));
         }
-        resetTest();
-        info = getLocal();
-        updateScores(info);
-        renderQuestion(questionArr[parseInt(info.place)]);
+        startQuiz();
     });
     for(let i = 1; i < questionArr[0].ansArray.length + 1; i++) {
         let answer = 'answer_' + i;
@@ -167,15 +163,6 @@ function addToString(el, add) {
     el = parseInt(el) + add;
     el = el.toString();
     return el
-}
-
-function resetTest() {
-    info = getLocal();
-    localStorage.setItem('userScore', 0);  
-    localStorage.setItem('place', 0);
-    if(parseInt(info.place) >= 10) {
-        localStorage.setItem('place', 0);
-    }
 }
 
 //console.log(testQuestion);
@@ -230,4 +217,40 @@ function getQuestions() {
         arr.push(obj)
     }
     return arr;
+}
+
+
+function startTimer() {
+    let counter = 5 * 60;
+    setInterval(() => {
+        //console.log(Date.now());
+        //console.log(end);
+        counter--;
+        if (counter >= 0) {
+            //console.log(Date.now());
+            let seconds = counter % 60;
+            if (seconds < 10) {
+                seconds = '0' + seconds;
+            }
+            document.getElementById('timer').textContent = Math.floor(counter / 60) + ':' + seconds;
+            document.getElementById('timer-m').textContent = Math.floor(counter / 60) + ':' + seconds;
+        } else {
+            if(window.confirm(`Time's up!`)) {
+                startQuiz();
+            } else {
+                startQuiz();
+            }
+        }
+    }, 1000);
+}
+
+function startQuiz() {
+    if(window.confirm('🧠 Are you ready to test your Javascript knowledge?\n🔟 There are 10 questions.\n⏱ Click OK to start the 5 minute timer.\n😁 Good Luck!')) {
+        localStorage.setItem('userScore', 0);  
+        localStorage.setItem('place', 0);
+        let info = getLocal();
+        updateScores(info);
+        startTimer();
+        renderQuestion(questionArr[parseInt(info.place)]);
+    }
 }
