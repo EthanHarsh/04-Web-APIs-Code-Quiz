@@ -111,13 +111,15 @@ function newStats() {
 }
 
 function updateScores(info) {
+    if(parseInt(info.userScore) > parseInt(info.highScore)){
+        localStorage.setItem('highScore', info.userScore);
+    }
+    localStorage.setItem('userScore', info.userScore);
+    info = getLocal();
      document.getElementById('user-score').textContent = info.userScore;
      document.getElementById('high-score').textContent = info.highScore;
      document.getElementById('user-score-m').textContent = info.userScore;
      document.getElementById('high-score-m').textContent = info.highScore;
-
-     localStorage.setItem('userScore', info.userScore);
-     localStorage.setItem('highScore', info.highScore);  
 }
 
 function checkIn(info) {
