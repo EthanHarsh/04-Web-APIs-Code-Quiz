@@ -1,4 +1,7 @@
 var questionArr = getQuestions();
+startTimer();
+
+//return timer and then send timer to startQuiz function
 console.log(questionArr)
 
 var info = getLocal();
@@ -221,21 +224,11 @@ function getQuestions() {
 
 
 function startTimer() {
-    let counter = 5 * 60;
-    let sesh = Math.floor(Math.random() * 100000000);
-    console.log(sesh);
-    localStorage.setItem('session_id', sesh); 
-    setInterval(() => {
-        //console.log(Date.now());
-        //console.log(end);
-        seshCheck = localStorage.getItem('session_id');
+    let timer = setInterval(() => {
+        let counter = localStorage.getItem('counter');
         counter--;
-        if( sesh != parseInt(seshCheck)) {
-            clearInterval();
-        }
-        console.log(seshCheck);
-         if (counter >= 0) { //need to have a way to end counter  (random variable in localhost)
-            //console.log(Date.now());
+        localStorage.setItem('counter', counter);
+         if (counter >= 0) { 
             let seconds = counter % 60;
             if (seconds < 10) {
                 seconds = '0' + seconds;
@@ -245,22 +238,22 @@ function startTimer() {
         } else {
             if(window.confirm(`Time's up!`)) {
                 startQuiz();
-                clearInterval();
             } else {
                 startQuiz();
-                clearInterval();
             }   
         }
     }, 1000);
 }
 
 function startQuiz() {
+    localStorage.setItem('storage_on', 1);
     if(window.confirm('🧠 Are you ready to test your Javascript knowledge?\n🔟 There are 10 questions.\n⏱ Click OK to start the 5 minute timer.\n😁 Good Luck!')) {
         localStorage.setItem('userScore', 0);  
         localStorage.setItem('place', 0);
         let info = getLocal();
         updateScores(info);
-        startTimer();
+        let counter = 5 * 60;
+        localStorage.setItem('counter', counter);
         renderQuestion(questionArr[parseInt(info.place)]);
     }
 }
