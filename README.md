@@ -3,9 +3,9 @@
 ![Javascript Badge](https://img.shields.io/badge/JavaScript-Vanilla-green) ![OSU Bootcamp Badge](https://img.shields.io/badge/OSU-Bootcamp-red)
 
 ## Deployed Application
-[Javascript Quiz 🧐](assets/img/javascript_quiz.pdf)
+[Javascript Quiz 🧐](https://ethanharsh.github.io/04-Web-APIs-Code-Quiz/)
 
-![Application Screenshot](https://github.com/EthanHarsh/04-Web-APIs-Code-Quiz/blob/dc1b5324f64319a73c7360eb2329f6f404290311/assets/img/javascript_quiz.pdf)
+![Application Screenshot](assets/img/javascript_quiz.pdf)
 
 ## Description
 How much do you know about Javascript? Here is your chance to find out.  Try your best to answer each question before time runs out!
