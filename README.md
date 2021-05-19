@@ -3,7 +3,7 @@
 ![Javascript Badge](https://img.shields.io/badge/JavaScript-Vanilla-green) ![OSU Bootcamp Badge](https://img.shields.io/badge/OSU-Bootcamp-red)
 
 ## Deployed Application
-[Javascript Quiz 🧐](https://ethanharsh.github.io/04-Web-APIs-Code-Quiz/)
+[Javascript Quiz 🧐](assets/img/javascript_quiz.pdf)
 
 ![Application Screenshot](https://github.com/EthanHarsh/04-Web-APIs-Code-Quiz/blob/dc1b5324f64319a73c7360eb2329f6f404290311/assets/img/javascript_quiz.pdf)
 
@@ -32,5 +32,5 @@ How much do you know about Javascript? Here is your chance to find out.  Try you
 ## Resources
 - [Javascript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
 - [Learn Javascript!](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps)
-- **General Reference ->**[MDN](https://developer.mozilla.org/en-US/)
-- **Design ->**[Material.io](https://material.io/)
+- **General Reference -> **[MDN](https://developer.mozilla.org/en-US/)
+- **Design -> **[Material.io](https://material.io/)
