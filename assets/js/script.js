@@ -50,9 +50,29 @@ function renderQuestion(question) {
             
             choice.textContent = 'Good Job 😁👍';
         }
+        enterInitials();
+        startQuiz();
     }
 }
 
+function renderPastScores() {
+    let info = getLocal();
+    let pastScores = JSON.parse(info.scores);
+    let pastScoresEl = document.getElementById('past-scores');
+    pastScoresEl.innerHTML = '';
+    let i = 0;
+    pastScores.forEach(el => {
+        pastScoresEl.appendChild(createPastScore(el, i));
+        i++; 
+    })
+}
+
+function createPastScore(el, i) {
+    pastScore = document.createElement('li');
+    pastScore.textContent = el[1] + ' - ' + el[0];
+    pastScore.setAttribute('id', 'pastScore_' + i);
+    return pastScore;
+}
 
 function answerClass(question) {
     let arr = [];
@@ -79,6 +99,7 @@ function renderAnswer(arr) {
         choice.classList.add(el);
         i++;
     });
+    
 }
 
 function removeAnswer(arr) {
@@ -98,7 +119,9 @@ function getLocal() {
         userScore: localStorage.getItem('userScore'),
         highScore: localStorage.getItem('highScore'),
         place: localStorage.getItem('place'),
-        visits: localStorage.getItem('visits')
+        visits: localStorage.getItem('visits'),
+        counter: localStorage.getItem('counter'),
+        scores: localStorage.getItem('scores')
     }
     return info;
 }
@@ -108,6 +131,8 @@ function newStats() {
    localStorage.setItem('highScore', 0);  
    localStorage.setItem('place', 0); 
    localStorage.setItem('visits', 1); 
+   localStorage.setItem('counter', 0);
+   localStorage.setItem('scores', '[]');
 }
 
 function updateScores(info) {
@@ -145,6 +170,7 @@ function setEventListeners(questionArr) {
         if(parseInt(info.place) < 10) {
             removeAnswer(answerClass(questionArr[parseInt(info.place)]));
         }
+        enterInitials();
         startQuiz();
     });
     for(let i = 1; i < questionArr[0].ansArray.length + 1; i++) {
@@ -158,6 +184,10 @@ function setEventListeners(questionArr) {
                 info.userScore = addToString(info.userScore, 1000);
                 updateScores(info);
                 console.log('correct');
+            } else {
+                info.counter = addToString(info.counter, -5);
+                localStorage.setItem('counter', info.counter);
+                console.log('incorrect');
             }
         });
         //console.log(answerClass(questionArr[i-1]))
@@ -239,8 +269,10 @@ function startTimer() {
             document.getElementById('timer-m').textContent = Math.floor(counter / 60) + ':' + seconds;
         } else {
             if(window.confirm(`Time's up!`)) {
+                enterInitials();
                 startQuiz();
             } else {
+                enterInitials();
                 startQuiz();
             }   
         }
@@ -248,14 +280,24 @@ function startTimer() {
 }
 
 function startQuiz() {
-    localStorage.setItem('storage_on', 1);
     if(window.confirm('🧠 Are you ready to test your Javascript knowledge?\n🔟 There are 10 questions.\n⏱ Click OK to start the 5 minute timer.\n😁 Good Luck!')) {
         localStorage.setItem('userScore', 0);  
         localStorage.setItem('place', 0);
         let info = getLocal();
         updateScores(info);
+        renderPastScores();
         let counter = 5 * 60;
         localStorage.setItem('counter', counter);
         renderQuestion(questionArr[parseInt(info.place)]);
     }
+}
+
+function enterInitials() {
+    let info = getLocal();
+    let scoresArr = JSON.parse(info.scores);
+    let initialsArr = [JSON.parse(info.userScore)];
+    let initials = window.prompt('Your score was: ' + info.userScore + '\nGreat Job! 😁👍\nPlease enter your initials');
+    initialsArr.push(initials);
+    scoresArr.push(initialsArr);
+    localStorage.setItem('scores', JSON.stringify(scoresArr));
 }

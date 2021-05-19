@@ -87,7 +87,7 @@ button {
 
 .sidebar {
     padding: 2.5rem;
-    height: 90vh;
+    height: auto;
     width: 33vw;
     display: flex;
     flex-flow: column wrap;
@@ -175,11 +175,28 @@ button {
     display: none;
 }
 
+.past-scores {
+    height: auto;
+    overflow: hidden;
+}
+
+.past-scores li {
+    padding-bottom: 0.5rem;
+    border: none;
+    margin: none;
+}
+
 /*HOVER*/
 li:hover, button:hover {
     background: var(--lightblue-bg-light);
     box-shadow: 10px 10px 10px rgba( 0, 0, 0, 0.15 );
     transform: translateY(-2px);
+}
+
+.past-scores li:hover {
+    background: none;
+    box-shadow: none;
+    transform: none;
 }
 
 @media (max-width: 780px) {
