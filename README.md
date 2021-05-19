@@ -5,7 +5,7 @@
 ## Deployed Application
 [Javascript Quiz 🧐](https://ethanharsh.github.io/04-Web-APIs-Code-Quiz/)
 
-![Application Screenshot](assets/img/javascript_quiz.png)
+![Application Screenshot](assets/img/javascript_quiz1.png)
 
 ## Description
 How much do you know about Javascript? Here is your chance to find out.  Try your best to answer each question before time runs out!
