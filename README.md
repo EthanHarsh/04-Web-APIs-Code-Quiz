@@ -32,5 +32,5 @@ How much do you know about Javascript? Here is your chance to find out.  Try you
 ## Resources
 - [Javascript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
 - [Learn Javascript!](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps)
-- **General Reference -> **[MDN](https://developer.mozilla.org/en-US/)
-- **Design -> **[Material.io](https://material.io/)
+- **General Reference -> [MDN](https://developer.mozilla.org/en-US/)
+- **Design -> [Material.io](https://material.io/)
