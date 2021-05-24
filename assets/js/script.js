@@ -1,19 +1,22 @@
+//Get test questions and start the timer
 var questionArr = getQuestions();
 startTimer();
 
 //return timer and then send timer to startQuiz function
 console.log(questionArr)
-
+//get local storage
 var info = getLocal();
+//check if first visit
 checkIn(info);
-
+//get updated local storage and update Scores on UI
 info = getLocal();
 updateScores(info);
+//Start event listeners
 setEventListeners(questionArr);
-
+//begin quiz app
 startQuiz();
 
-
+//Renders questions to UI
 function renderQuestion(question) {
     let info = getLocal();
     if (parseInt(info.place) < 10) {
@@ -54,7 +57,7 @@ function renderQuestion(question) {
         startQuiz();
     }
 }
-
+//renders past scores stored on local machine
 function renderPastScores() {
     let info = getLocal();
     let pastScores = JSON.parse(info.scores);
@@ -66,14 +69,14 @@ function renderPastScores() {
         i++; 
     })
 }
-
+//add quiz score to past score list
 function createPastScore(el, i) {
     pastScore = document.createElement('li');
     pastScore.textContent = el[1] + ' - ' + el[0];
     pastScore.setAttribute('id', 'pastScore_' + i);
     return pastScore;
 }
-
+//create answer key array
 function answerClass(question) {
     let arr = [];
     let i=0;
@@ -88,7 +91,7 @@ function answerClass(question) {
     //console.log(arr);
     return arr;
 }
-
+//render colors indicating correct and incorrect answer choices
 function renderAnswer(arr) {
     let i = 1;
     arr.forEach(el => {
@@ -101,7 +104,7 @@ function renderAnswer(arr) {
     });
     
 }
-
+//remove colors indicating correct and incorrect answers
 function removeAnswer(arr) {
     let i = 1;
     arr.forEach(el => {
@@ -113,7 +116,7 @@ function removeAnswer(arr) {
         i++;
     });
 }
-
+//get quiz stats from local storage
 function getLocal() {
     const info = {
         userScore: localStorage.getItem('userScore'),
@@ -125,7 +128,7 @@ function getLocal() {
     }
     return info;
 }
-
+//set new stats for first visit
 function newStats() {
    localStorage.setItem('userScore', 0);
    localStorage.setItem('highScore', 0);  
@@ -134,7 +137,7 @@ function newStats() {
    localStorage.setItem('counter', 0);
    localStorage.setItem('scores', '[]');
 }
-
+//set new high scores and render scores
 function updateScores(info) {
     if(parseInt(info.userScore) > parseInt(info.highScore)){
         localStorage.setItem('highScore', info.userScore);
@@ -146,7 +149,7 @@ function updateScores(info) {
      document.getElementById('user-score-m').textContent = info.userScore;
      document.getElementById('high-score-m').textContent = info.highScore;
 }
-
+//check if this is first visit
 function checkIn(info) {
     if (!info.visits) {
         newStats();
@@ -156,7 +159,7 @@ function checkIn(info) {
 }
 
 
-
+//start event listeners
 function setEventListeners(questionArr) {
     document.getElementById("next").addEventListener("click", () => {
         let info = getLocal();
@@ -193,7 +196,7 @@ function setEventListeners(questionArr) {
         //console.log(answerClass(questionArr[i-1]))
     }
 }
-
+//take strings containing numerical values and add (or subtract using negative numbers) then set back to string type for local storage
 function addToString(el, add) {
     el = parseInt(el) + add;
     el = el.toString();
@@ -201,7 +204,7 @@ function addToString(el, add) {
 }
 
 //console.log(testQuestion);
-
+//returns quiz questions and answers
 function getQuestions() {
     let questions = [
         'What is Javascript?',
@@ -254,7 +257,7 @@ function getQuestions() {
     return arr;
 }
 
-
+//start local storage based timer
 function startTimer() {
     let timer = setInterval(() => {
         let counter = localStorage.getItem('counter');
@@ -278,7 +281,7 @@ function startTimer() {
         }
     }, 1000);
 }
-
+//start new quiz
 function startQuiz() {
     if(window.confirm('🧠 Are you ready to test your Javascript knowledge?\n🔟 There are 10 questions.\n⏱ Click OK to start the 5 minute timer.\n😁 Good Luck!')) {
         localStorage.setItem('userScore', 0);  
@@ -291,7 +294,7 @@ function startQuiz() {
         renderQuestion(questionArr[parseInt(info.place)]);
     }
 }
-
+//enter initials for storage of past quiz scores
 function enterInitials() {
     let info = getLocal();
     let scoresArr = JSON.parse(info.scores);
